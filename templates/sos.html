@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SOS Alert - WomenSafe</title>
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: #fff5f8;
+      color: #333;
+    }
+    main {
+      max-width: 520px;
+      margin: 20px auto;
+      padding: 25px;
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 4px 18px #00000012;
+    }
+    h1 { color: #8e2457; text-align: center; }
+    label { display: block; margin-top: 16px; font-weight: bold; }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 7px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    button, .btn {
+      display: block;
+      width: 100%;
+      border: 0;
+      border-radius: 9px;
+      padding: 13px;
+      margin-top: 14px;
+      font-size: 16px;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .sos { background: #d62839; color: white; font-weight: bold; }
+    .secondary { background: #8e2457; color: white; }
+    .light { background: #f5e5ed; color: #702044; }
+    #status { line-height: 1.6; overflow-wrap: anywhere; }
+    .note { font-size: 13px; color: #666; line-height: 1.5; }
+  </style>
+</head>
+
+<body>
+<main>
+  <h1>🆘 SOS Emergency</h1>
+  <p>If you are in immediate danger in India, call <strong>112</strong>.</p>
+
+  <label for="contact">Trusted contact phone number</label>
+  <input id="contact" type="tel" placeholder="Enter phone number">
+
+  <button class="sos" onclick="getEmergencyLocation()">
+    GET LOCATION & PREPARE SOS
+  </button>
+
+  <p id="status" role="status" aria-live="polite">
+    Press the button to request your current location.
+  </p>
+
+  <a id="mapLink" class="btn light" href="#" target="_blank"
+     rel="noopener" hidden>Open Location in Google Maps</a>
+
+  <button id="shareButton" class="secondary" onclick="shareLocation()" hidden>
+    Share Location
+  </button>
+
+  <a id="smsLink" class="btn secondary" href="#" hidden>
+    Open SMS with SOS Message
+  </a>
+
+  <a class="btn sos" href="tel:112">CALL EMERGENCY NUMBER 112</a>
+
+  <p class="note">
+    Your location is requested only after you press the button and grant
+    browser permission. The message is not sent automatically. Review and
+    send it yourself in your messaging app. If location fails, call 112
+    directly if you are in immediate danger.
+  </p>
+
+  <p style="text-align:center"><a href="/">← Back to Home</a></p>
+</main>
+
+<script>
+  let mapUrl = "";
+  let sosMessage = "";
+
+  function getEmergencyLocation() {
+    const status = document.getElementById("status");
+    const number = document.getElementById("contact").value.trim();
+
+    if (!number) {
+      status.textContent = "Please enter a trusted contact's phone number.";
+      document.getElementById("contact").focus();
+      return;
+    }
+
+    if (!navigator.geolocation) {
+      status.textContent =
+        "Location is not supported. You can still call 112.";
+      return;
+    }
+
+    status.textContent = "Requesting your location permission...";
+
+    navigator.geolocation.getCurrentPosition(
+      function(position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        mapUrl = "https://maps.google.com/?q=" + lat + "," + lon;
+        sosMessage =
+          "SOS! I may need help. My current location is: " + mapUrl;
+
+        status.textContent =
+          "Location ready. Check the map link and send the SOS message to your trusted contact.";
+
+        const mapLink = document.getElementById("mapLink");
+        mapLink.href = mapUrl;
+        mapLink.hidden = false;
+
+        const shareButton = document.getElementById("shareButton");
+        shareButton.hidden = false;
+
+        const smsLink = document.getElementById("smsLink");
+        smsLink.href = "sms:" + number + "?body=" +
+          encodeURIComponent(sosMessage);
+        smsLink.hidden = false;
+      },
+      function() {
+        status.textContent =
+          "Could not get location. Allow location permission and try again, or call 112 if in danger.";
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+    );
+  }
+
+  async function shareLocation() {
+    if (!mapUrl) {
+      document.getElementById("status").textContent =
+        "Get your location first.";
+      return;
+    }
+
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: "WomenSafe SOS",
+          text: sosMessage,
+          url: mapUrl
+        });
+      } else if (navigator.clipboard) {
+        await navigator.clipboard.writeText(sosMessage);
+        document.getElementById("status").textContent =
+          "SOS message copied. Paste it into a message to your trusted contact.";
+      } else {
+        window.prompt("Copy this SOS message:", sosMessage);
+      }
+    } catch (error) {
+      if (error.name !== "AbortError") {
+        document.getElementById("status").textContent =
+          "Sharing did not complete. You can open the SMS option instead.";
+      }
+    }
+  }
+</script>
+</body>
+</html>
