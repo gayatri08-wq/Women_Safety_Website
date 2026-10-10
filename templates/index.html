@@ -1,229 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#8e2457">
+  <title>WomenSafe | Women's Safety</title>
 
-    <title>WomenSafe - Women Safety</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
-            background: #fff5f8;
-            color: #333;
-        }
-
-        header {
-            background: #8e2457;
-            color: white;
-            padding: 18px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 25px;
-            font-weight: bold;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin-left: 20px;
-            font-size: 15px;
-        }
-
-        .hero {
-            text-align: center;
-            padding: 55px 20px 35px;
-        }
-
-        .hero h1 {
-            color: #8e2457;
-            font-size: 40px;
-            margin-bottom: 12px;
-        }
-
-        .hero p {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 30px;
-        }
-
-        .sos {
-            display: inline-block;
-            background: #d62839;
-            color: white;
-            text-decoration: none;
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: auto;
-            font-size: 28px;
-            font-weight: bold;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .sos:hover {
-            transform: scale(1.05);
-        }
-
-        .features {
-            max-width: 1000px;
-            margin: 30px auto;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-        }
-
-        .card h2 {
-            color: #8e2457;
-            margin-bottom: 10px;
-        }
-
-        .card p {
-            color: #666;
-            margin-bottom: 18px;
-        }
-
-        .btn {
-            display: inline-block;
-            background: #8e2457;
-            color: white;
-            padding: 10px 18px;
-            border-radius: 8px;
-            text-decoration: none;
-        }
-
-        .btn:hover {
-            background: #701b44;
-        }
-
-        footer {
-            margin-top: 40px;
-            background: #8e2457;
-            color: white;
-            text-align: center;
-            padding: 18px;
-        }
-
-        @media (max-width: 600px) {
-            header {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            nav a {
-                margin: 0 7px;
-            }
-
-            .hero h1 {
-                font-size: 32px;
-            }
-        }
-    </style>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff5f8;
+      color: #33252c;
+    }
+    header {
+      background: #8e2457;
+      color: white;
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .logo { font-size: 25px; font-weight: bold; }
+    nav { display: flex; flex-wrap: wrap; gap: 15px; }
+    nav a { color: white; text-decoration: none; font-size: 14px; }
+    .hero {
+      text-align: center;
+      padding: 65px 20px 55px;
+      background: linear-gradient(135deg, #ffe1ec, #fff5f8);
+    }
+    .hero h1 { color: #8e2457; font-size: clamp(30px, 5vw, 46px); }
+    .hero p { max-width: 650px; margin: 15px auto; line-height: 1.7; }
+    .button {
+      display: inline-block;
+      text-decoration: none;
+      text-align: center;
+      padding: 14px 22px;
+      border-radius: 10px;
+      font-weight: bold;
+      margin: 8px 4px;
+    }
+    .sos { background: #d62839; color: white; }
+    .primary { background: #8e2457; color: white; }
+    .cards {
+      max-width: 1100px;
+      padding: 25px 20px 45px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 4px 18px #0000000d;
+    }
+    .card h2 { color: #8e2457; font-size: 21px; }
+    .card p { line-height: 1.6; color: #65545d; }
+    .card a { display: inline-block; margin-top: 8px; }
+    .notice {
+      margin: 0 auto 35px;
+      max-width: 900px;
+      padding: 0 20px;
+      text-align: center;
+      line-height: 1.7;
+    }
+    footer {
+      background: #552039;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    @media (max-width: 600px) {
+      header { justify-content: center; text-align: center; }
+      nav { justify-content: center; }
+      .hero { padding-top: 40px; }
+    }
+  </style>
 </head>
 
 <body>
-
-<header>
+  <header>
     <div class="logo">🛡️ WomenSafe</div>
-
-    <nav>
-        <a href="/">Home</a>
-        <a href="/help">Help</a>
-        <a href="/safety-tips">Safety Tips</a>
+    <nav aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/sos">SOS Alert</a>
+      <a href="/location">Location</a>
+      <a href="/contacts">Contacts</a>
+      <a href="/help">Emergency Help</a>
     </nav>
-</header>
+  </header>
 
-<section class="hero">
-
+  <section class="hero">
     <h1>Your Safety, Our Priority</h1>
-
     <p>
-        A simple and reliable platform for women's safety and emergency assistance.
+      WomenSafe helps you access emergency calling, prepare an SOS message,
+      and share your location with a trusted person.
     </p>
+    <a class="button sos" href="/sos">🆘 SOS Emergency</a>
+    <a class="button primary" href="/location">📍 Share My Location</a>
+  </section>
 
-    <a href="/sos" class="sos">
-        SOS
-    </a>
+  <section class="cards">
+    <article class="card">
+      <h2>🆘 SOS Alert</h2>
+      <p>Prepare an emergency message with your location for a trusted contact.</p>
+      <a class="button sos" href="/sos">Open SOS</a>
+    </article>
 
-</section>
+    <article class="card">
+      <h2>📍 Location Sharing</h2>
+      <p>Request your current location and open it on Google Maps.</p>
+      <a class="button primary" href="/location">Get Location</a>
+    </article>
 
-<section class="features">
+    <article class="card">
+      <h2>👥 Emergency Contacts</h2>
+      <p>Save or update a trusted contact number in this browser.</p>
+      <a class="button primary" href="/contacts">Manage Contacts</a>
+    </article>
 
-    <div class="card">
-        <h2>📞 Help</h2>
+    <article class="card">
+      <h2>☎️ Emergency Help</h2>
+      <p>Access emergency numbers and call for help when needed.</p>
+      <a class="button primary" href="/help">Get Help</a>
+    </article>
 
-        <p>
-            Get emergency numbers and immediate safety assistance.
-        </p>
+    <article class="card">
+      <h2>💡 Safety Tips</h2>
+      <p>Read practical safety reminders for everyday situations.</p>
+      <a class="button primary" href="/safety-tips">Read Tips</a>
+    </article>
+  </section>
 
-        <a href="/help" class="btn">
-            Get Help
-        </a>
-    </div>
+  <div class="notice">
+    <strong>Emergency reminder:</strong> If you are in immediate danger in
+    India, call 112 directly. WomenSafe is a helper website and does not
+    automatically contact police or send SMS messages.
+  </div>
 
-    <div class="card">
-        <h2>📍 My Location</h2>
-
-        <p>
-            Find and share your current location during an emergency.
-        </p>
-
-        <a href="/location" class="btn">
-            View Location
-        </a>
-    </div>
-
-    <div class="card">
-        <h2>👥 Emergency Contacts</h2>
-
-        <p>
-            Quickly access your trusted emergency contacts.
-        </p>
-
-        <a href="/contacts" class="btn">
-            Manage Contacts
-        </a>
-    </div>
-
-    <div class="card">
-        <h2>💡 Safety Tips</h2>
-
-        <p>
-            Learn useful tips for staying safe in different situations.
-        </p>
-
-        <a href="/safety-tips" class="btn">
-            Safety Tips
-        </a>
-    </div>
-
-</section>
-
-<footer>
-    © 2026 WomenSafe | Women Safety Web Application
-</footer>
-
+  <footer>
+    <strong>WomenSafe</strong>
+    <p>Safety • Awareness • Support</p>
+  </footer>
 </body>
 </html>
