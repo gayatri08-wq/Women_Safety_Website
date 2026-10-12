@@ -1,0 +1,48 @@
+
+{% extends "base.html" %}
+
+{% block title %}Emergency Helpline | WomenSafe{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <span class="eyebrow">HELP WHEN YOU NEED IT</span>
+    <h1>Emergency Helpline</h1>
+    <p>Important helpline numbers for people in India.</p>
+</section>
+
+<div class="notice">
+    If you face an immediate emergency, call <strong>112</strong>.
+    Confirm the correct service number and availability for your area.
+</div>
+
+<section class="helpline-list">
+    <article class="helpline-card">
+        <div>
+            <h2>112 — Emergency Response</h2>
+            <p>For urgent police, fire or medical assistance.</p>
+        </div>
+        <a class="button button-danger" href="tel:112">Call 112</a>
+    </article>
+
+    <article class="helpline-card">
+        <div>
+            <h2>181 — Women Helpline</h2>
+            <p>Women in distress may contact this service where available.</p>
+        </div>
+        <a class="button button-primary" href="tel:181">Call 181</a>
+    </article>
+
+    <article class="helpline-card">
+        <div>
+            <h2>108 — Ambulance</h2>
+            <p>Medical emergency assistance where this service operates.</p>
+        </div>
+        <a class="button button-primary" href="tel:108">Call 108</a>
+    </article>
+</section>
+
+<p class="small-note">
+    Helpline availability may vary by state and service. These buttons open
+    your device's calling app; they do not place a call automatically.
+</p>
+{% endblock %}
