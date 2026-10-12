@@ -1,152 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#8e2457">
-  <title>WomenSafe | Women's Safety</title>
 
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #fff5f8;
-      color: #33252c;
-    }
-    header {
-      background: #8e2457;
-      color: white;
-      padding: 18px 6%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .logo { font-size: 25px; font-weight: bold; }
-    nav { display: flex; flex-wrap: wrap; gap: 15px; }
-    nav a { color: white; text-decoration: none; font-size: 14px; }
-    .hero {
-      text-align: center;
-      padding: 65px 20px 55px;
-      background: linear-gradient(135deg, #ffe1ec, #fff5f8);
-    }
-    .hero h1 { color: #8e2457; font-size: clamp(30px, 5vw, 46px); }
-    .hero p { max-width: 650px; margin: 15px auto; line-height: 1.7; }
-    .button {
-      display: inline-block;
-      text-decoration: none;
-      text-align: center;
-      padding: 14px 22px;
-      border-radius: 10px;
-      font-weight: bold;
-      margin: 8px 4px;
-    }
-    .sos { background: #d62839; color: white; }
-    .primary { background: #8e2457; color: white; }
-    .cards {
-      max-width: 1100px;
-      padding: 25px 20px 45px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-    .card {
-      background: white;
-      padding: 25px;
-      border-radius: 16px;
-      box-shadow: 0 4px 18px #0000000d;
-    }
-    .card h2 { color: #8e2457; font-size: 21px; }
-    .card p { line-height: 1.6; color: #65545d; }
-    .card a { display: inline-block; margin-top: 8px; }
-    .notice {
-      margin: 0 auto 35px;
-      max-width: 900px;
-      padding: 0 20px;
-      text-align: center;
-      line-height: 1.7;
-    }
-    footer {
-      background: #552039;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      line-height: 1.6;
-    }
-    @media (max-width: 600px) {
-      header { justify-content: center; text-align: center; }
-      nav { justify-content: center; }
-      .hero { padding-top: 40px; }
-    }
-  </style>
-</head>
+{% extends "base.html" %}
 
-<body>
-  <header>
-    <div class="logo">🛡️ WomenSafe</div>
-    <nav aria-label="Main navigation">
-      <a href="/">Home</a>
-      <a href="/sos">SOS Alert</a>
-      <a href="/location">Location</a>
-      <a href="/contacts">Contacts</a>
-      <a href="/help">Emergency Help</a>
-    </nav>
-  </header>
+{% block title %}Home | WomenSafe{% endblock %}
 
-  <section class="hero">
-    <h1>Your Safety, Our Priority</h1>
-    <p>
-      WomenSafe helps you access emergency calling, prepare an SOS message,
-      and share your location with a trusted person.
-    </p>
-    <a class="button sos" href="/sos">🆘 SOS Emergency</a>
-    <a class="button primary" href="/location">📍 Share My Location</a>
-  </section>
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <span class="eyebrow">YOUR SAFETY MATTERS</span>
+        <h1>Your Safety.<br> Your Confidence.</h1>
+        <p>
+            WomenSafe helps you access emergency contacts, location sharing,
+            emergency helplines and practical safety guidance in one place.
+        </p>
+        <a class="button button-danger" href="{{ url_for('sos') }}">Open SOS Alert</a>
+        <a class="button button-light" href="{{ url_for('safety_tips') }}">Safety Tips</a>
+    </div>
+    <div class="hero-icon">🛡️</div>
+</section>
 
-  <section class="cards">
-    <article class="card">
-      <h2>🆘 SOS Alert</h2>
-      <p>Prepare an emergency message with your location for a trusted contact.</p>
-      <a class="button sos" href="/sos">Open SOS</a>
-    </article>
+<section class="section">
+    <h2>Explore WomenSafe</h2>
+    <p class="section-intro">Choose the feature you need.</p>
 
-    <article class="card">
-      <h2>📍 Location Sharing</h2>
-      <p>Request your current location and open it on Google Maps.</p>
-      <a class="button primary" href="/location">Get Location</a>
-    </article>
+    <div class="feature-grid">
+        <a class="feature-card" href="{{ url_for('sos') }}">
+            <span class="feature-icon">🚨</span>
+            <h3>SOS Alert</h3>
+            <p>Prepare an emergency message with your location.</p>
+            <span class="card-link">Open SOS →</span>
+        </a>
 
-    <article class="card">
-      <h2>👥 Emergency Contacts</h2>
-      <p>Save or update a trusted contact number in this browser.</p>
-      <a class="button primary" href="/contacts">Manage Contacts</a>
-    </article>
+        <a class="feature-card" href="{{ url_for('location') }}">
+            <span class="feature-icon">📍</span>
+            <h3>Location Sharing</h3>
+            <p>Get your location and create a Google Maps link.</p>
+            <span class="card-link">View Location →</span>
+        </a>
 
-    <article class="card">
-      <h2>☎️ Emergency Help</h2>
-      <p>Access emergency numbers and call for help when needed.</p>
-      <a class="button primary" href="/help">Get Help</a>
-    </article>
+        <a class="feature-card" href="{{ url_for('contacts') }}">
+            <span class="feature-icon">📞</span>
+            <h3>Emergency Contacts</h3>
+            <p>Save a trusted person's number on this device.</p>
+            <span class="card-link">Manage Contacts →</span>
+        </a>
 
-    <article class="card">
-      <h2>💡 Safety Tips</h2>
-      <p>Read practical safety reminders for everyday situations.</p>
-      <a class="button primary" href="/safety-tips">Read Tips</a>
-    </article>
-  </section>
+        <a class="feature-card" href="{{ url_for('help_page') }}">
+            <span class="feature-icon">☎️</span>
+            <h3>Emergency Helpline</h3>
+            <p>Find important emergency numbers for India.</p>
+            <span class="card-link">View Helplines →</span>
+        </a>
 
-  <div class="notice">
-    <strong>Emergency reminder:</strong> If you are in immediate danger in
-    India, call 112 directly. WomenSafe is a helper website and does not
-    automatically contact police or send SMS messages.
-  </div>
+        <a class="feature-card" href="{{ url_for('safety_tips') }}">
+            <span class="feature-icon">💜</span>
+            <h3>Safety Tips</h3>
+            <p>Read practical tips for everyday safety.</p>
+            <span class="card-link">Read Tips →</span>
+        </a>
+    </div>
+</section>
 
-  <footer>
-    <strong>WomenSafe</strong>
-    <p>Safety • Awareness • Support</p>
-  </footer>
-</body>
-</html>
+<section class="notice">
+    <strong>Remember:</strong> WomenSafe is a support tool, not a substitute
+    for emergency services. If you are in immediate danger in India, call 112.
+</section>
+{% endblock %}
