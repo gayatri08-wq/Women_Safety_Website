@@ -1,0 +1,109 @@
+
+{% extends "base.html" %}
+
+{% block title %}Location Sharing | WomenSafe{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <span class="eyebrow">LOCATION SERVICES</span>
+    <h1>Location Sharing</h1>
+    <p>Find your current location and open it in Google Maps.</p>
+</section>
+
+<section class="panel">
+    <div class="feature-icon">📍</div>
+    <h2>Your Current Location</h2>
+    <p id="locationStatus" class="status" role="status" aria-live="polite">
+        Click the button to request your location.
+    </p>
+
+    <button class="button button-primary full-width" type="button"
+            onclick="getLocation()">
+        Get My Location
+    </button>
+
+    <div id="locationDetails" class="result-box" hidden>
+        <p><strong>Latitude:</strong> <span id="latitude"></span></p>
+        <p><strong>Longitude:</strong> <span id="longitude"></span></p>
+
+        <a id="googleMaps" class="button button-light full-width"
+           href="#" target="_blank" rel="noopener">
+            Open in Google Maps
+        </a>
+
+        <button class="button button-primary full-width" type="button"
+                onclick="shareLocation()">
+            Share Location
+        </button>
+    </div>
+</section>
+
+<script>
+let locationMessage = "";
+
+function getLocation() {
+    const status = document.getElementById("locationStatus");
+
+    if (!navigator.geolocation) {
+        status.textContent = "Your browser does not support location services.";
+        return;
+    }
+
+    status.textContent = "Requesting location permission...";
+
+    navigator.geolocation.getCurrentPosition(
+        function (position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            const url = `https://www.google.com/maps?q=${lat},${lon}`;
+
+            document.getElementById("latitude").textContent = lat.toFixed(6);
+            document.getElementById("longitude").textContent = lon.toFixed(6);
+            document.getElementById("googleMaps").href = url;
+            document.getElementById("locationDetails").hidden = false;
+
+            locationMessage = "My current location: " + url;
+            status.textContent = "Location received successfully.";
+        },
+        function (error) {
+            const messages = {
+                1: "Location permission denied. Allow it in your browser settings.",
+                2: "Location is unavailable. Check your device location settings.",
+                3: "Request timed out. Please try again."
+            };
+
+            status.textContent =
+                messages[error.code] || "Unable to get location.";
+        },
+        { enableHighAccuracy: true, timeout: 20000, maximumAge: 0 }
+    );
+}
+
+async function shareLocation() {
+    if (!locationMessage) return;
+
+    if (navigator.share) {
+        try {
+            await navigator.share({
+                title: "My Location",
+                text: locationMessage
+            });
+        } catch (error) {
+            if (error.name !== "AbortError") {
+                document.getElementById("locationStatus").textContent =
+                    "Location sharing was not completed.";
+            }
+        }
+    } else {
+        try {
+            await navigator.clipboard.writeText(locationMessage);
+            document.getElementById("locationStatus").textContent =
+                "Maps link copied. You can share it yourself.";
+        } catch (error) {
+            document.getElementById("locationStatus").textContent =
+                "Sharing unavailable. Open Google Maps and copy the link.";
+        }
+    }
+}
+</script>
+{% endblock %}
