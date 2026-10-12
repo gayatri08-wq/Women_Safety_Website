@@ -1,56 +1,303 @@
 
-.auth-card {
-    width: min(90%, 400px);
-    margin: 55px auto;
-    padding: 28px;
+/* WomenSafe - Modern Responsive Design */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --primary: #8b3dff;
+    --primary-dark: #6825cf;
+    --pink: #ff5c93;
+    --background: #fff7fb;
+    --surface: #ffffff;
+    --text: #29243a;
+    --muted: #746e80;
+    --border: #eee5f4;
+    --danger: #e63946;
+    --shadow: 0 10px 35px rgba(91, 42, 126, 0.10);
+}
+
+* {
     box-sizing: border-box;
-    background: white;
-    border-radius: 18px;
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--background);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--primary-dark);
+}
+
+/* Navigation */
+nav, .navbar {
+    background: var(--surface);
+    padding: 15px 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    box-shadow: 0 3px 18px rgba(50, 20, 70, 0.06);
+}
+
+nav a, .navbar a {
+    font-weight: 500;
+    margin: 0 8px;
+}
+
+nav a:first-child, .navbar a:first-child {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+/* Main content */
+main, .container {
+    width: min(1100px, 92%);
+    margin: 40px auto;
+}
+
+h1, h2, h3 {
+    line-height: 1.3;
+    margin-bottom: 16px;
+    color: var(--text);
+}
+
+h1 {
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 800;
+}
+
+h2 {
+    font-size: 27px;
+}
+
+p {
+    margin-bottom: 14px;
+    color: var(--muted);
+}
+
+/* Cards */
+.card, .auth-card, .feature-card {
+    background: var(--surface);
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+}
+
+.auth-card {
+    width: min(440px, 92%);
+    margin: 55px auto;
+    padding: 35px;
+}
+
+.auth-card h1,
+.auth-card h2 {
     text-align: center;
 }
 
-.auth-card h1 {
-    color: #7c2455;
+.auth-card p {
+    text-align: center;
 }
 
-.auth-card h2 {
-    color: #333;
+/* Forms */
+form {
+    width: 100%;
 }
 
-.auth-card form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+label {
+    display: block;
+    font-weight: 600;
+    margin: 15px 0 6px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #ded5e8;
+    border-radius: 11px;
+    background: #fff;
+    font: inherit;
+    font-size: 15px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(139, 61, 255, 0.12);
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    width: auto;
+}
+
+/* Buttons */
+button, .btn, input[type="submit"] {
+    display: inline-block;
+    width: auto;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 22px;
+    margin-top: 16px;
+    background: var(--primary);
+    color: white;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+button:hover, .btn:hover, input[type="submit"]:hover {
+    background: var(--primary-dark);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.auth-card button,
+.auth-card input[type="submit"] {
+    width: 100%;
+}
+
+button:focus-visible, a:focus-visible {
+    outline: 3px solid var(--pink);
+    outline-offset: 3px;
+}
+
+/* SOS button */
+.sos-button, .btn-danger {
+    background: var(--danger);
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 16px 30px;
+    border-radius: 50px;
+}
+
+.sos-button:hover, .btn-danger:hover {
+    background: #bd202e;
+}
+
+/* Alerts and messages */
+.message, .flash-message, .alert {
+    padding: 13px 16px;
+    margin: 15px 0;
+    border-radius: 12px;
+    background: #f1eaff;
+    color: #5625a3;
+    border: 1px solid #dfd0ff;
+}
+
+.success {
+    background: #e7f8ed;
+    color: #176a37;
+}
+
+.error {
+    background: #fff0f0;
+    color: #b42332;
+}
+
+/* Feature grid */
+.grid, .features, .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 22px;
+}
+
+.feature-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 36px rgba(91, 42, 126, 0.14);
+}
+
+/* Lists and tables */
+ul, ol {
+    padding-left: 24px;
+    margin: 12px 0;
+}
+
+li {
+    margin-bottom: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 13px;
+    border-bottom: 1px solid var(--border);
     text-align: left;
 }
 
-.auth-card input {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
+th {
+    background: #f1eaff;
 }
 
-.auth-card button {
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    background: #7c2455;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
+/* Footer */
+footer {
+    text-align: center;
+    padding: 25px 15px;
+    color: var(--muted);
+    margin-top: 40px;
 }
 
-.auth-card a {
-    color: #7c2455;
-}
+/* Mobile */
+@media (max-width: 600px) {
+    nav, .navbar {
+        padding: 14px 4%;
+        justify-content: center;
+    }
 
-.message {
-    padding: 10px;
-    background: #f9e8f1;
-    border-radius: 8px;
-    overflow-wrap: anywhere;
+    nav a, .navbar a {
+        margin: 4px 6px;
+        font-size: 13px;
+    }
+
+    main, .container {
+        width: 92%;
+        margin: 25px auto;
+    }
+
+    .auth-card {
+        margin: 30px auto;
+        padding: 24px 20px;
+    }
+
+    .card, .feature-card {
+        padding: 21px;
+    }
+
+    h2 {
+        font-size: 23px;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+    }
 }
