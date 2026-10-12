@@ -1,0 +1,102 @@
+
+{% extends "base.html" %}
+
+{% block title %}Emergency Contacts | WomenSafe{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <span class="eyebrow">TRUSTED PEOPLE</span>
+    <h1>Emergency Contacts</h1>
+    <p>Save a trusted person's phone number for quick access.</p>
+</section>
+
+<section class="panel">
+    <label for="contactName">Contact name</label>
+    <input id="contactName" type="text" maxlength="60"
+           placeholder="Example: Family Member">
+
+    <label for="contactNumber">Phone number</label>
+    <input id="contactNumber" type="tel" maxlength="20"
+           autocomplete="tel" placeholder="Enter phone number">
+
+    <button class="button button-primary full-width" type="button"
+            onclick="saveContact()">Save Contact</button>
+
+    <p id="contactStatus" class="status" role="status" aria-live="polite"></p>
+
+    <div class="result-box">
+        <h2>Saved Contact</h2>
+        <p id="savedContact">No contact saved yet.</p>
+        <div class="action-buttons">
+            <a id="callContact" class="button button-light" href="#"
+               hidden>Call Contact</a>
+            <button id="removeContact" class="button button-danger"
+                    type="button" onclick="removeSavedContact()" hidden>
+                Remove Contact
+            </button>
+        </div>
+    </div>
+
+    <p class="small-note">
+        Your contact is stored only in this browser on this device.
+        It is not automatically uploaded to a server or sent to anyone.
+    </p>
+</section>
+
+<script>
+const nameInput = document.getElementById("contactName");
+const numberInput = document.getElementById("contactNumber");
+const contactStatus = document.getElementById("contactStatus");
+
+function displayContact() {
+    const name = localStorage.getItem("womenSafeContactName") || "";
+    const number = localStorage.getItem("womenSafeContact") || "";
+    const saved = document.getElementById("savedContact");
+    const call = document.getElementById("callContact");
+    const remove = document.getElementById("removeContact");
+
+    if (!number) {
+        saved.textContent = "No contact saved yet.";
+        call.hidden = true;
+        remove.hidden = true;
+        return;
+    }
+
+    saved.textContent = (name ? name + " — " : "") + number;
+    call.href = "tel:" + number.replace(/[^\d+]/g, "");
+    call.hidden = false;
+    remove.hidden = false;
+}
+
+function saveContact() {
+    const name = nameInput.value.trim();
+    const number = numberInput.value.trim();
+    const digits = number.replace(/\D/g, "");
+
+    if (!name || digits.length < 7 || digits.length > 15) {
+        contactStatus.textContent =
+            "Enter a name and a valid phone number.";
+        return;
+    }
+
+    localStorage.setItem("womenSafeContactName", name);
+    localStorage.setItem("womenSafeContact", number);
+
+    contactStatus.textContent = "Contact saved on this device.";
+    displayContact();
+}
+
+function removeSavedContact() {
+    localStorage.removeItem("womenSafeContactName");
+    localStorage.removeItem("womenSafeContact");
+    nameInput.value = "";
+    numberInput.value = "";
+    contactStatus.textContent = "Saved contact removed.";
+    displayContact();
+}
+
+nameInput.value = localStorage.getItem("womenSafeContactName") || "";
+numberInput.value = localStorage.getItem("womenSafeContact") || "";
+displayContact();
+</script>
+{% endblock %}
