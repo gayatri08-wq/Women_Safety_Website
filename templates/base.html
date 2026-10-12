@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#7c2455">
+    <title>{% block title %}WomenSafe{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="{{ url_for('home') }}">🛡️ WomenSafe</a>
+        <nav class="navigation">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('sos') }}">SOS</a>
+            <a href="{{ url_for('location') }}">Location</a>
+            <a href="{{ url_for('contacts') }}">Contacts</a>
+            <a href="{{ url_for('help_page') }}">Helpline</a>
+            <a href="{{ url_for('safety_tips') }}">Safety Tips</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <p>WomenSafe — Awareness, Preparedness and Safety</p>
+        <p>In an emergency in India, call 112.</p>
+    </footer>
+</body>
+</html>
